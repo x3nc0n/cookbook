@@ -1,0 +1,32 @@
+title: The Cookbook
+description: A collection of recipes, organized and tagged automatically.
+url: ""
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Collections
+collections:
+  recipes:
+    output: true
+    permalink: /recipes/:slug/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "recipes"
+    values:
+      layout: "recipe"
+
+# Exclude from build
+exclude:
+  - scripts/
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - "*.py"
+  - requirements.txt
+  - input/

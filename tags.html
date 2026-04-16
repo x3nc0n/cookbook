@@ -1,0 +1,29 @@
+---
+layout: default
+title: Tags
+permalink: /tags/
+---
+<h1 class="page-title">Browse by Tag</h1>
+
+{% assign all_tags = "" | split: "" %}
+{% for recipe in site.recipes %}
+  {% for tag in recipe.tags %}
+    {% unless all_tags contains tag %}
+      {% assign all_tags = all_tags | push: tag %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+{% assign all_tags = all_tags | sort %}
+
+{% for tag in all_tags %}
+<div class="tag-section" id="{{ tag | slugify }}">
+  <h2>{{ tag }}</h2>
+  <ul>
+    {% for recipe in site.recipes %}
+      {% if recipe.tags contains tag %}
+      <li><a href="{{ recipe.url | relative_url }}">{{ recipe.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}

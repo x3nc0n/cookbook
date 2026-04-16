@@ -1,0 +1,33 @@
+---
+layout: default
+title: Cuisines
+permalink: /cuisines/
+---
+<h1 class="page-title">Browse by Cuisine</h1>
+
+{% assign cuisines = "" | split: "" %}
+{% for recipe in site.recipes %}
+  {% if recipe.cuisine %}
+    {% unless cuisines contains recipe.cuisine %}
+      {% assign cuisines = cuisines | push: recipe.cuisine %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+{% assign cuisines = cuisines | sort %}
+
+{% for cuisine in cuisines %}
+<div class="tag-section" id="{{ cuisine | slugify }}">
+  <h2>{{ cuisine }}</h2>
+  <div class="recipe-grid">
+    {% assign sorted = site.recipes | sort: "title" %}
+    {% for recipe in sorted %}
+      {% if recipe.cuisine == cuisine %}
+      <a href="{{ recipe.url | relative_url }}" class="recipe-card">
+        <h3>{{ recipe.title }}</h3>
+        <div class="card-meta">{{ recipe.dish_type }}{% if recipe.main_ingredient %} · {{ recipe.main_ingredient }}{% endif %}</div>
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}

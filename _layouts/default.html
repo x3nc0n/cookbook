@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <nav>
+      <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+      <ul class="nav-links">
+        <li><a href="{{ '/' | relative_url }}">Recipes</a></li>
+        <li><a href="{{ '/tags/' | relative_url }}">Tags</a></li>
+        <li><a href="{{ '/cuisines/' | relative_url }}">Cuisines</a></li>
+        <li><a href="{{ '/dish-types/' | relative_url }}">Dish Types</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer class="site-footer">
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>
+  </footer>
+</body>
+</html>

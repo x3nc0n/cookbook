@@ -1,0 +1,32 @@
+---
+layout: default
+title: Recipes
+---
+<h1 class="page-title">All Recipes</h1>
+
+<div class="filter-bar">
+  <input type="text" id="recipe-search" placeholder="Search recipes..." aria-label="Search recipes">
+</div>
+
+<div class="recipe-grid" id="recipe-grid">
+  {% assign sorted = site.recipes | sort: "title" %}
+  {% for recipe in sorted %}
+  <a href="{{ recipe.url | relative_url }}" class="recipe-card" data-search="{{ recipe.title | downcase }} {{ recipe.dish_type | downcase }} {{ recipe.cuisine | downcase }} {{ recipe.main_ingredient | downcase }} {{ recipe.tags | join: ' ' | downcase }}">
+    <h3>{{ recipe.title }}</h3>
+    <div class="card-meta">
+      {% if recipe.dish_type %}{{ recipe.dish_type }}{% endif %}
+      {% if recipe.cuisine %} · {{ recipe.cuisine }}{% endif %}
+      {% if recipe.main_ingredient %} · {{ recipe.main_ingredient }}{% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<script>
+document.getElementById('recipe-search').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('.recipe-card').forEach(function(card) {
+    card.style.display = card.dataset.search.includes(q) ? '' : 'none';
+  });
+});
+</script>

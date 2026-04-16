@@ -1,0 +1,33 @@
+---
+layout: default
+title: Dish Types
+permalink: /dish-types/
+---
+<h1 class="page-title">Browse by Dish Type</h1>
+
+{% assign types = "" | split: "" %}
+{% for recipe in site.recipes %}
+  {% if recipe.dish_type %}
+    {% unless types contains recipe.dish_type %}
+      {% assign types = types | push: recipe.dish_type %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+{% assign types = types | sort %}
+
+{% for dtype in types %}
+<div class="tag-section" id="{{ dtype | slugify }}">
+  <h2>{{ dtype }}</h2>
+  <div class="recipe-grid">
+    {% assign sorted = site.recipes | sort: "title" %}
+    {% for recipe in sorted %}
+      {% if recipe.dish_type == dtype %}
+      <a href="{{ recipe.url | relative_url }}" class="recipe-card">
+        <h3>{{ recipe.title }}</h3>
+        <div class="card-meta">{{ recipe.cuisine }}{% if recipe.main_ingredient %} · {{ recipe.main_ingredient }}{% endif %}</div>
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
